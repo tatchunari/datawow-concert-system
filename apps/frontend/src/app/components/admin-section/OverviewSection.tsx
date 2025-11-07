@@ -1,7 +1,14 @@
+import { useState } from "react";
 import ConcertCard from "../ConcertCard";
+import DeleteModal from "../DeleteModal";
 import { Trash2 } from "lucide-react";
 
 const OverviewSection = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleDelete = () => {
+    setShowModal(true);
+  };
   return (
     <div>
       <ConcertCard
@@ -11,7 +18,16 @@ const OverviewSection = () => {
         buttonLabel="Delete"
         buttonColor="bg-card-red"
         buttonIcon={Trash2}
-        onButtonClick={() => alert('Deleted "Summer Beats Festival"!')}
+        onButtonClick={handleDelete}
+      />
+
+      {/* Delete Modal */}
+      <DeleteModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onConfirm={handleDelete}
+        title="Delete Concert"
+        concertName="Concert Name 1"
       />
     </div>
   );

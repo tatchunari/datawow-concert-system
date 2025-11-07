@@ -24,7 +24,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-64 bg-white px-6 py-15 flex flex-col justify-between">
+    <aside className="w-[240px] bg-white px-6 py-15 flex flex-col justify-between">
       <div>
         <h1 className="mb-6">{mode === "admin" ? "Admin" : "User"}</h1>
 
