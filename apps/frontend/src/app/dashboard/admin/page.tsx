@@ -15,7 +15,7 @@ export default function AdminDashboardPage() {
       {/* Overview and Create Section */}
       <div className="flex flex-col mt-10">
         {/* Tabs */}
-        <div className="flex flex-row gap-5 mb-6">
+        <div className="flex flex-row gap-5 mb-6 mx-10">
           <button
             onClick={() => setActiveTab("overview")}
             className={`font-roboto font-semibold p-2 ${

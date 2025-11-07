@@ -8,7 +8,7 @@ import { CircleX } from "lucide-react";
 const StatSection = () => {
   return (
     <div>
-      <div className="flex flex-col md:flex-row gap-5">
+      <div className="flex flex-col md:flex-row gap-5 items-center justify-center">
         <StatCard
           icon={<UserRound className="w-10 h-10" />}
           label="Total of seats"

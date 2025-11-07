@@ -24,7 +24,7 @@ const ConcertCard: React.FC<ConcertCardProps> = ({
   onButtonClick,
 }) => {
   return (
-    <div className="bg-white p-5 border border-gray-300 rounded-md shadow-sm hover:shadow-md transition">
+    <div className="bg-white p-5 border border-gray-300 rounded-md shadow-sm hover:shadow-md transition max-w-[350px] md:max-w-[1100px] mx-4 md:mx-10">
       {/* Title */}
       <div className="border-b border-gray-300 py-3">
         <h2 className="font-roboto font-semibold text-xl text-[#1692EC]">
