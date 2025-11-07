@@ -25,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({
       className={`
         ${color} ${textColor}
         flex items-center justify-center gap-2
-        font-roboto font-semibold
+        font-roboto
         px-4 py-2 rounded-md
         hover:opacity-90 transition
       `}
