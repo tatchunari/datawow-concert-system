@@ -1,60 +1,58 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
-interface SidebarProps {
-  mode: "admin" | "user";
-  onSwitch: () => void;
-}
-
-export default function Sidebar({ mode, onSwitch }: SidebarProps) {
+export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  // Determine mode from the current path
+  const mode = pathname.startsWith("/dashboard/admin") ? "admin" : "user";
 
   const adminLinks = [
-    { name: "Dashboard", href: "/dashboard/admin" },
-    { name: "Users", href: "/dashboard/admin/users" },
-    { name: "Reports", href: "/dashboard/admin/reports" },
+    { name: "Home", href: "/dashboard/admin" },
+    { name: "History", href: "/dashboard/admin/history" },
   ];
 
-  const userLinks = [
-    { name: "My Profile", href: "/dashboard/user" },
-    { name: "My Orders", href: "/dashboard/user/orders" },
-    { name: "Support", href: "/dashboard/user/support" },
-  ];
-
-  const links = mode === "admin" ? adminLinks : userLinks;
+  const handleSwitch = () => {
+    if (mode === "admin") {
+      router.push("/dashboard/user");
+    } else {
+      router.push("/dashboard/admin");
+    }
+  };
 
   return (
-    <aside className="w-64 bg-gray-800 text-white p-4 flex flex-col justify-between">
+    <aside className="w-64 bg-white px-6 py-15 flex flex-col justify-between">
       <div>
-        <h2 className="text-lg font-bold mb-4">
-          {mode === "admin" ? "Admin Panel" : "User Dashboard"}
-        </h2>
-        <ul className="space-y-2">
-          {links.map((link) => (
+        <h1 className="mb-6">{mode === "admin" ? "Admin" : "User"}</h1>
+
+        <ul className="space-y-2 mt-8">
+          {adminLinks.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`block px-3 py-2 rounded ${
+                className={`block p-2 rounded ${
                   pathname === link.href
-                    ? "bg-gray-700 text-white"
-                    : "hover:bg-gray-700 text-gray-300"
+                    ? "bg-[#EAF5FA] text-black"
+                    : "hover:bg-[#EAF5FA] text-gray-500"
                 }`}
               >
-                {link.name}
+                <p className="text-md">{link.name}</p>
               </Link>
             </li>
           ))}
         </ul>
-      </div>
 
-      <button
-        onClick={onSwitch}
-        className="mt-6 bg-gray-700 hover:bg-gray-600 px-3 py-2 rounded text-sm text-gray-200"
-      >
-        Switch to {mode === "admin" ? "User" : "Admin"} Mode
-      </button>
+        {/* Switch Mode Button */}
+        <button
+          onClick={handleSwitch}
+          className="mt-6 bg-gray-700 hover:bg-gray-600 px-3 py-2 rounded text-sm text-gray-200"
+        >
+          Switch to {mode === "admin" ? "User" : "Admin"}
+        </button>
+      </div>
     </aside>
   );
 }

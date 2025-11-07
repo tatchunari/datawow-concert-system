@@ -19,18 +19,18 @@
 /* Add your custom base styles here */
 @layer base {
   h1 {
-    @apply font-roboto text-4xl font-bold text-black;
+    @apply font-roboto text-3xl font-semibold text-black;
   }
 
   h2 {
-    @apply font-roboto text-2xl font-semibold text-[#1692EC];
+    @apply font-roboto text-xl font-semibold text-[#1692EC];
   }
 
   p {
-    @apply font-roboto leading-relaxed;
+    @apply font-roboto;
   }
 
   a {
-    @apply text-blue-500 hover:text-blue-700 underline;
+    @apply text-blue-500 hover:text-blue-700;
   }
 }
