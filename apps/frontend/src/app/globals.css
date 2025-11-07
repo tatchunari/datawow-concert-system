@@ -23,7 +23,7 @@
   }
 
   h2 {
-    @apply font-roboto text-xl font-semibold text-[#1692EC];
+    @apply font-roboto text-xl font-medium text-[#1692EC];
   }
 
   p {
@@ -35,6 +35,6 @@
   }
 
   button {
-    @apply cursor-pointer;
+    @apply cursor-pointer font-roboto;
   }
 }
