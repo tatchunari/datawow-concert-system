@@ -1,6 +1,6 @@
 import ConcertTable from "@/app/components/ConcertTable";
 
-const AdminHistoryPage = () => {
+const UserHistoryPage = () => {
   return (
     <div>
       <ConcertTable />
@@ -8,4 +8,4 @@ const AdminHistoryPage = () => {
   );
 };
 
-export default AdminHistoryPage;
+export default UserHistoryPage;
