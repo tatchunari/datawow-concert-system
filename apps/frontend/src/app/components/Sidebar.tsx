@@ -56,6 +56,8 @@ export default function Sidebar() {
           Switch to {mode === "admin" ? "User" : "Admin"}
         </button>
       </div>
+
+      <button>Logout</button>
     </aside>
   );
 }

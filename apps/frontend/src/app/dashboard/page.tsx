@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function DashboardPage() {
-  return <h1 className="text-2xl font-bold">Welcome to the Dashboard</h1>;
+  redirect("/dashboard/admin");
 }
