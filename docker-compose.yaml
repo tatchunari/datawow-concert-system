@@ -1,0 +1,37 @@
+services:
+  mongodb:
+    image: mongo:latest # Use a specific version for production, e.g., mongo:7.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017" # Map host port 27017 to container port 27017 (default MongoDB port)
+    environment:
+      # These variables create an administrative user upon first start
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongo-data:/data/db # Named volume for persistent data storage
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081" # Web UI accessible at http://localhost:8081
+    environment:
+      # MongoDB Connection Settings
+      # ME_CONFIG_MONGODB_SERVER uses the 'mongodb' service name as the hostname
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      # The credentials used by Mongo Express to authenticate with MongoDB
+      ME_CONFIG_MONGODB_ADMINUSERNAME: user
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+
+      # Optional: Mongo Express UI Credentials (for basic auth on the web UI)
+      # If you set these, you'll need them to log into http://localhost:8081
+      # ME_CONFIG_BASICAUTH_USERNAME: admin
+      # ME_CONFIG_BASICAUTH_PASSWORD: password
+    depends_on:
+      - mongodb # Ensures the MongoDB container starts before Mongo Express
+
+volumes:
+  mongo-data: # Define the named volume
