@@ -33,4 +33,8 @@
   a {
     @apply text-blue-500 hover:text-blue-700;
   }
+
+  button {
+    @apply cursor-pointer;
+  }
 }

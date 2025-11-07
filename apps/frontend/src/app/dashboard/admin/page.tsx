@@ -1,32 +1,47 @@
-import StatCard from "@/app/components/Statcard";
+"use client";
+import CreateSection from "@/app/components/admin-section/CreateSection";
+import OverviewSection from "@/app/components/admin-section/OverviewSection";
+import StatSection from "@/app/components/admin-section/StatSection";
 
-// Icons
-import { UserRound } from "lucide-react";
-import { Award } from "lucide-react";
-import { CircleX } from "lucide-react";
+import { useState } from "react";
 export default function AdminDashboardPage() {
+  const [activeTab, setActiveTab] = useState<"overview" | "create">("overview");
+
   return (
     <div>
       {/* Stats Card Section */}
-      <div className="flex flex-row gap-x-5">
-        <StatCard
-          icon={<UserRound className="w-10 h-10" />}
-          label="Total of seats"
-          value={500}
-          color="bg-card-blue"
-        />
-        <StatCard
-          icon={<Award className="w-10 h-10" />}
-          label="Reserve"
-          value={120}
-          color="bg-card-green"
-        />
-        <StatCard
-          icon={<CircleX className="w-10 h-10" />}
-          label="Cancel"
-          value={12}
-          color="bg-card-red"
-        />
+      <StatSection />
+
+      {/* Overview and Create Section */}
+      <div className="flex flex-col mt-10">
+        {/* Tabs */}
+        <div className="flex flex-row gap-5 mb-6">
+          <button
+            onClick={() => setActiveTab("overview")}
+            className={`font-roboto font-semibold p-2 ${
+              activeTab === "overview"
+                ? "text-[#1692EC] border-b-2 border-b-[#1692EC]"
+                : "text-gray-500"
+            }`}
+          >
+            Overview
+          </button>
+
+          <button
+            onClick={() => setActiveTab("create")}
+            className={`font-roboto font-semibold p-2 ${
+              activeTab === "create"
+                ? "text-[#1692EC] border-b-2 border-b-[#1692EC]"
+                : "text-gray-500"
+            }`}
+          >
+            Create
+          </button>
+        </div>
+
+        {/* Sections */}
+        {activeTab === "overview" && <OverviewSection />}
+        {activeTab === "create" && <CreateSection />}
       </div>
     </div>
   );
