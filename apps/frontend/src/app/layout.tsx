@@ -1,6 +1,6 @@
-// app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
+import ReactQueryProvider from "./components/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "Concert Dashboard",
@@ -14,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
+      </body>
     </html>
   );
 }
