@@ -12,6 +12,8 @@ interface ConcertCardProps {
   buttonColor?: string;
   buttonIcon?: React.ElementType;
   onButtonClick?: () => void;
+  onClick?: () => void;
+  isSelected?: boolean; // <-- new prop
 }
 
 const ConcertCard: React.FC<ConcertCardProps> = ({
@@ -22,12 +24,26 @@ const ConcertCard: React.FC<ConcertCardProps> = ({
   buttonColor = "bg-card-red",
   buttonIcon,
   onButtonClick,
+  onClick,
+  isSelected = false,
 }) => {
   return (
-    <div className="bg-white p-5 border border-gray-300 rounded-md shadow-sm hover:shadow-md transition max-w-[350px] md:max-w-[1100px] mx-4 md:mx-10">
+    <div
+      className={`cursor-pointer bg-white p-5 border rounded-md shadow-sm transition max-w-[350px] md:max-w-[1100px] mx-4 md:mx-10 my-7
+        ${
+          isSelected
+            ? "border-[#1692EC] shadow-md bg-blue-50"
+            : "border-gray-300 hover:shadow-md"
+        }`}
+      onClick={onClick}
+    >
       {/* Title */}
       <div className="border-b border-gray-300 py-3">
-        <h2 className="font-roboto font-semibold text-xl text-[#1692EC]">
+        <h2
+          className={`font-roboto font-semibold text-xl ${
+            isSelected ? "text-[#1692EC]" : "text-gray-800"
+          }`}
+        >
           {title}
         </h2>
       </div>

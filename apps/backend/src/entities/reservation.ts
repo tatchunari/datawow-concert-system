@@ -17,4 +17,5 @@ export class Reservation {
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
+  seats_reserved: number;
 }

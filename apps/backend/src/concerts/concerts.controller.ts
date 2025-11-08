@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { ConcertsService } from './concerts.service';
 import { CreateConcertDto } from './dto/create-concert.dto';
 
@@ -11,6 +11,11 @@ export class ConcertsController {
   getAll() {
     return this.concertsService.findAll();
   }
+  // Get a single concert by id
+  @Get(':id')
+  getById(@Param('id') id: string) {
+    return this.concertsService.findOne(Number(id));
+  }
 
   // Create a new concert
   @Post()
@@ -18,9 +23,9 @@ export class ConcertsController {
     return this.concertsService.createConcert(body);
   }
 
-  // Deactivate a concert
-  @Patch(':id/deactivate')
-  deactivate(@Param('id') id: string) {
-    return this.concertsService.deactivateConcert(Number(id));
+  // Delete a concert
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.concertsService.deleteConcert(Number(id));
   }
 }

@@ -1,20 +1,31 @@
 "use client";
-import CreateSection from "@/app/components/admin-section/CreateSection";
-import OverviewSection from "@/app/components/admin-section/OverviewSection";
-import StatSection from "@/app/components/admin-section/StatSection";
 
 import { useState } from "react";
+import StatSection from "@/app/components/admin-section/StatSection";
+import OverviewSection from "@/app/components/admin-section/OverviewSection";
+import CreateSection from "@/app/components/admin-section/CreateSection";
+
 export default function AdminDashboardPage() {
+  // Track which tab is active
   const [activeTab, setActiveTab] = useState<"overview" | "create">("overview");
+
+  // Track selected concert for passing into StatSection
+  const [selectedConcert, setSelectedConcert] = useState<{
+    id: number;
+    name: string;
+    total_seats: number;
+    available_seats: number;
+    reserved_seats: number;
+    cancelled_seats: number;
+  } | null>(null);
 
   return (
     <div>
-      {/* Stats Card Section */}
-      <StatSection />
+      {/* Stats Section */}
+      <StatSection selectedConcert={selectedConcert} />
 
-      {/* Overview and Create Section */}
+      {/* Tabs Section */}
       <div className="flex flex-col mt-10">
-        {/* Tabs */}
         <div className="flex flex-row gap-5 mb-6 mx-10">
           <button
             onClick={() => setActiveTab("overview")}
@@ -39,8 +50,10 @@ export default function AdminDashboardPage() {
           </button>
         </div>
 
-        {/* Sections */}
-        {activeTab === "overview" && <OverviewSection />}
+        {/* Section switching */}
+        {activeTab === "overview" && (
+          <OverviewSection onSelectConcert={setSelectedConcert} />
+        )}
         {activeTab === "create" && <CreateSection />}
       </div>
     </div>

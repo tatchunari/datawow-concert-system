@@ -17,4 +17,5 @@ export class History {
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
+  seats: number;
 }
