@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { User } from './entities/user.entity';
 import { Concert } from './entities/concert.entity';
 import { Reservation } from './entities/reservation';
+import { History } from './entities/history.entity';
 // import { ConcertsModule } from './concerts/concerts.module';
 // import { ReservationsModule } from './reservations/reservations.module';
 // import { HistoryModule } from './history/history.module';
