@@ -1,18 +1,38 @@
-export default function ConcertTable() {
-  const data = [
-    {
-      dateTime: "12/09/2024 15:00:00",
-      username: "Sara John",
-      concertName: "The festival Int 2024",
-      action: "Cancel",
-    },
-    {
-      dateTime: "12/09/2024 10:39:20",
-      username: "Sara John",
-      concertName: "The festival Int 2024",
-      action: "Reserve",
-    },
-  ];
+interface ConcertTableRow {
+  dateTime: string;
+  username: string;
+  concertName: string;
+  action: string;
+}
+
+interface ConcertTableProps {
+  data: ConcertTableRow[];
+  isLoading?: boolean;
+  emptyMessage?: string;
+}
+
+export default function ConcertTable({
+  data,
+  isLoading = false,
+  emptyMessage = "No records found",
+}: ConcertTableProps) {
+  if (isLoading) {
+    return (
+      <div className="w-full max-w-full p-4 flex justify-center items-center">
+        <p className="text-gray-500">Loading...</p>
+      </div>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <div className="w-full max-w-full p-4">
+        <div className="bg-white border border-gray-400 rounded-lg p-8 text-center">
+          <p className="text-gray-500">{emptyMessage}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-full p-4">
