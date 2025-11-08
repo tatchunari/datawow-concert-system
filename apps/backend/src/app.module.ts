@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+import { User } from './entities/user.entity';
+import { Concert } from './entities/concert.entity';
+import { Reservation } from './entities/reservation';
 // import { ConcertsModule } from './concerts/concerts.module';
 // import { ReservationsModule } from './reservations/reservations.module';
 // import { HistoryModule } from './history/history.module';
@@ -10,8 +13,9 @@ import { UsersModule } from './users/users.module';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'database.sqlite',
-      autoLoadEntities: true, // automatically load entities from modules
-      synchronize: true, // auto-create tables (only for development!)
+      autoLoadEntities: true,
+      entities: [User, Concert, Reservation, History],
+      synchronize: true,
     }),
     UsersModule,
     // ConcertsModule,

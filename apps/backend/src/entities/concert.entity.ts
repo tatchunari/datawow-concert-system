@@ -1,10 +1,6 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-} from 'typeorm';
-
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Reservation } from './reservation';
+import { History } from './history.entity';
 @Entity('concerts')
 export class Concert {
   @PrimaryGeneratedColumn()
@@ -22,6 +18,15 @@ export class Concert {
   @Column()
   available_seats: number;
 
-  @CreateDateColumn()
+  @Column({ default: true })
+  is_active: boolean;
+
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
+
+  @OneToMany(() => Reservation, (reservation) => reservation.concert)
+  reservations: Reservation[];
+
+  @OneToMany(() => History, (history) => history.concert)
+  history: History[];
 }

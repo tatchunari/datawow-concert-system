@@ -1,29 +1,20 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  UpdateDateColumn,
-  ManyToOne,
-  Unique,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { User } from './user.entity';
 import { Concert } from './concert.entity';
-
 @Entity('reservations')
-@Unique(['user', 'concert'])
 export class Reservation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.reservations)
   user: User;
 
-  @ManyToOne(() => Concert)
+  @ManyToOne(() => Concert, (concert) => concert.reservations)
   concert: Concert;
 
   @Column()
-  status: string; // 'reserved' or 'cancelled'
+  status: string; // 'active' or 'cancelled'
 
-  @UpdateDateColumn()
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
 }
