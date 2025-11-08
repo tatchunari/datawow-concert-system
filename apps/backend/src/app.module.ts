@@ -7,7 +7,7 @@ import { Reservation } from './entities/reservation';
 import { History } from './entities/history.entity';
 import { ConcertsModule } from './concerts/concerts.module';
 import { ReservationsModule } from './reservations/reservations.module';
-// import { HistoryModule } from './history/history.module';
+import { HistoryModule } from './history/history.module';
 
 @Module({
   imports: [
@@ -21,7 +21,7 @@ import { ReservationsModule } from './reservations/reservations.module';
     UsersModule,
     ConcertsModule,
     ReservationsModule,
-    // HistoryModule,
+    HistoryModule,
   ],
 })
 export class AppModule {}
