@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, Inbox, RefreshCcw, LogOut } from "lucide-react";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -18,14 +18,18 @@ export default function Sidebar() {
   const userId = searchParams.get("user_id") || "1";
   // Admin-only links
   const adminLinks = [
-    { name: "Home", href: "/dashboard/admin" },
-    { name: "History", href: "/dashboard/admin/history" },
+    { name: "Home", href: "/dashboard/admin", icon: "Home" },
+    { name: "History", href: "/dashboard/admin/history", icon: "History" },
   ];
 
   // User-only links
   const userLinks = [
-    { name: "Home", href: "/dashboard/user" },
-    { name: "History", href: `/dashboard/user/history?user_id=${userId}` },
+    { name: "Home", href: "/dashboard/user", icon: "History" },
+    {
+      name: "History",
+      href: `/dashboard/user/history?user_id=${userId}`,
+      icon: "Inbox",
+    },
   ];
 
   // Switch between admin and user dashboard
@@ -90,12 +94,17 @@ export default function Sidebar() {
                 <Link
                   href={link.href}
                   onClick={handleLinkClick}
-                  className={`block p-2 rounded transition ${
+                  className={`flex flex-row items-center gap-2 p-2 rounded transition ${
                     pathname === link.href
                       ? "bg-[#EAF5FA] text-black"
                       : "hover:bg-[#EAF5FA] text-gray-500"
                   }`}
                 >
+                  {link.icon === "Home" ? (
+                    <Home className="w-5 h-5" />
+                  ) : link.icon === "History" ? (
+                    <Inbox className="w-5 h-5" />
+                  ) : null}
                   <p className="text-md">{link.name}</p>
                 </Link>
               </li>
@@ -105,13 +114,15 @@ export default function Sidebar() {
           {/* Switch Mode Button */}
           <button
             onClick={handleSwitch}
-            className="mt-8 w-full bg-gray-700 hover:bg-gray-600 px-3 py-2 rounded text-sm text-gray-200 transition-colors"
+            className="mt-8 w-full bg-gray-700 hover:bg-gray-600 px-3 py-2 rounded text-sm text-gray-200 transition-colors flex flex-row gap-2 items-center justify-center"
           >
+            <RefreshCcw className="w-5" />
             Switch to {mode === "admin" ? "User" : "Admin"}
           </button>
         </div>
 
-        <button className="text-gray-700 hover:text-gray-900 text-left transition-colors">
+        <button className="text-gray-700 hover:text-gray-900 text-left transition-colors flex flex-row gap-2 items-center">
+          <LogOut />
           Logout
         </button>
       </aside>

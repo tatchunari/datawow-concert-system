@@ -1,6 +1,6 @@
 "use client";
 
-import { Save } from "lucide-react";
+import { Save, UserRound } from "lucide-react";
 import Button from "../Button";
 import InputBox from "../InputBox";
 import { useState } from "react";
@@ -114,13 +114,16 @@ const CreateSection = ({ onSave }: CreateSectionProps) => {
           </div>
 
           <div className="flex flex-col w-full">
-            <InputBox
-              label="Total of seat"
-              placeholder="Please fill in number of seats"
-              value={form.totalSeats}
-              onChange={(e) => handleChange("totalSeats", e.target.value)}
-              required
-            />
+            <div className="flex flex-row relative">
+              <InputBox
+                label="Total of seat"
+                placeholder="Please fill in number of seats"
+                value={form.totalSeats}
+                onChange={(e) => handleChange("totalSeats", e.target.value)}
+                required
+              />
+              <UserRound className="absolute top-9 right-4" />
+            </div>
             {errors.totalSeats && (
               <p className="text-red-500 text-sm mt-1">{errors.totalSeats}</p>
             )}
