@@ -5,7 +5,11 @@ import StatSection from "@/app/components/admin-section/StatSection";
 import OverviewSection from "@/app/components/admin-section/OverviewSection";
 import CreateSection from "@/app/components/admin-section/CreateSection";
 
+import { api } from "@/lib/axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 export default function AdminDashboardPage() {
+  const queryClient = useQueryClient();
   // Track which tab is active
   const [activeTab, setActiveTab] = useState<"overview" | "create">("overview");
 
@@ -18,6 +22,23 @@ export default function AdminDashboardPage() {
     reserved_seats: number;
     cancelled_seats: number;
   } | null>(null);
+
+  const createConcertMutation = useMutation({
+    mutationFn: (newConcert: {
+      name: string;
+      description: string;
+      total_seats: number;
+    }) => api.post("/concerts", newConcert),
+    onSuccess: () => {
+      // Invalidate or refetch concerts query so the list updates automatically
+      queryClient.invalidateQueries({ queryKey: ["concerts"] });
+
+      setActiveTab("overview");
+    },
+    onError: () => {
+      alert("Failed to create concert. Please try again.");
+    },
+  });
 
   return (
     <div>
@@ -54,7 +75,17 @@ export default function AdminDashboardPage() {
         {activeTab === "overview" && (
           <OverviewSection onSelectConcert={setSelectedConcert} />
         )}
-        {activeTab === "create" && <CreateSection />}
+        {activeTab === "create" && (
+          <CreateSection
+            onSave={(name, description, totalSeats) =>
+              createConcertMutation.mutate({
+                name,
+                description,
+                total_seats: totalSeats,
+              })
+            }
+          />
+        )}
       </div>
     </div>
   );

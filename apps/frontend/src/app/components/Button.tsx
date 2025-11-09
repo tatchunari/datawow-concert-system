@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-
 interface ButtonProps {
   label: string;
+  type?: "submit" | "reset" | "button";
   color?: string;
   textColor?: string;
   onClick?: () => void;
@@ -13,6 +13,7 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({
   label,
+  type,
   color = "bg-[#1692EC]",
   textColor = "text-white",
   onClick,
@@ -29,6 +30,7 @@ const Button: React.FC<ButtonProps> = ({
         px-4 py-2 rounded-md
         hover:opacity-90 transition
       `}
+      type={type}
     >
       {Icon && iconPosition === "left" && <Icon className="w-5 h-5" />}
       <span>{label}</span>
