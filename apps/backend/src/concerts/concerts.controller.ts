@@ -1,6 +1,17 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Patch,
+} from '@nestjs/common';
+
 import { ConcertsService } from './concerts.service';
 import { CreateConcertDto } from './dto/create-concert.dto';
+import { DeleteConcertDto } from './dto/delete-concert.dto';
+import { DeactivateConcertDto } from './dto/delete-concert.dto';
 
 @Controller('concerts')
 export class ConcertsController {
@@ -25,7 +36,12 @@ export class ConcertsController {
 
   // Delete a concert
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.concertsService.deleteConcert(Number(id));
+  delete(@Param() params: DeleteConcertDto) {
+    return this.concertsService.deleteConcert(Number(params.id));
+  }
+
+  @Patch(':id/deactivate')
+  deactivate(@Param() params: DeactivateConcertDto) {
+    return this.concertsService.deactivateConcert(params.id);
   }
 }
