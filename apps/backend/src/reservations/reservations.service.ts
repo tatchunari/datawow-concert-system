@@ -105,4 +105,15 @@ export class ReservationsService {
 
     return reservation;
   }
+
+  async getReservationById(reservationId: number) {
+    const reservation = await this.reservationRepo.findOne({
+      where: { id: reservationId },
+      relations: ['user', 'concert'],
+    });
+
+    if (!reservation) throw new NotFoundException('Reservation not found');
+
+    return reservation;
+  }
 }

@@ -13,7 +13,7 @@ interface ConcertCardProps {
   buttonIcon?: React.ElementType;
   onButtonClick?: () => void;
   onClick?: () => void;
-  isSelected?: boolean; // <-- new prop
+  isSelected?: boolean;
 }
 
 const ConcertCard: React.FC<ConcertCardProps> = ({
@@ -29,7 +29,7 @@ const ConcertCard: React.FC<ConcertCardProps> = ({
 }) => {
   return (
     <div
-      className={`cursor-pointer bg-white p-5 border rounded-md shadow-sm transition max-w-[350px] md:max-w-[1100px] mx-4 md:mx-10 my-7
+      className={`cursor-pointer bg-white p-5 border rounded-md shadow-sm transition max-w-[350px] md:max-w-[1100px] mx-4 md:mx-10 my-4
         ${
           isSelected
             ? "border-[#1692EC] shadow-md bg-blue-50"
