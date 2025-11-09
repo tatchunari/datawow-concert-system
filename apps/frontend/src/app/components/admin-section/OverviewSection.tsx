@@ -85,7 +85,7 @@ const OverviewSection = ({ onSelectConcert }: OverviewSectionProps) => {
           key={concert.id}
           title={concert.name}
           description={concert.description}
-          totalSeats={concert.available_seats}
+          totalSeats={concert.total_seats}
           buttonLabel="Delete"
           buttonColor="bg-card-red"
           buttonIcon={Trash2}

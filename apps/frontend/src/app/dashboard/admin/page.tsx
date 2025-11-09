@@ -42,7 +42,7 @@ export default function AdminDashboardPage() {
   });
 
   return (
-    <div>
+    <div className="flex flex-col justify-center">
       {/* Stats Section */}
       <StatSection selectedConcert={selectedConcert} />
 
