@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
+
 import StatSection from "@/app/components/admin-section/StatSection";
 import OverviewSection from "@/app/components/admin-section/OverviewSection";
 import CreateSection from "@/app/components/admin-section/CreateSection";
@@ -32,12 +34,11 @@ export default function AdminDashboardPage() {
     onSuccess: () => {
       // Invalidate or refetch concerts query so the list updates automatically
       queryClient.invalidateQueries({ queryKey: ["concerts"] });
+      toast.success("Created successfully");
 
       setActiveTab("overview");
     },
-    onError: () => {
-      alert("Failed to create concert. Please try again.");
-    },
+    onError: () => () => toast.error("Failed to create"),
   });
 
   return (

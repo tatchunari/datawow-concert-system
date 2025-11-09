@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import ReactQueryProvider from "./components/ReactQueryProvider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Concert Dashboard",
@@ -15,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          {children}
+          <Toaster position="top-right" richColors />
+        </ReactQueryProvider>
       </body>
     </html>
   );

@@ -1,4 +1,6 @@
 "use client";
+
+import { toast } from "sonner";
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/axios";
@@ -57,9 +59,10 @@ const OverviewSection = ({ onSelectConcert }: OverviewSectionProps) => {
       setShowModal(false);
       // Invalidate the 'concerts' query so it refetches the latest list
       queryClient.invalidateQueries({ queryKey: ["concerts"] });
+      toast.success("Deleted successfully");
     } catch (error) {
       console.error("Failed to delete concert:", error);
-      alert("Failed to delete concert. Please try again.");
+      toast.error("Failed to delete");
     }
   };
 
