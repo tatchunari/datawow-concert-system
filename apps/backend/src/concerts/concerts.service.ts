@@ -61,7 +61,7 @@ export class ConcertsService {
     });
 
     const reservedSeats = reservations.filter(
-      (r) => r.status === 'reserve',
+      (r) => r.status === 'active',
     ).length;
     const cancelledSeats = reservations.filter(
       (r) => r.status === 'cancel',
@@ -83,7 +83,7 @@ export class ConcertsService {
     const reservedSeats = await this.reservationRepo.count({
       where: {
         concert: { id: concertId },
-        status: 'reserved',
+        status: 'active',
       },
     });
 
