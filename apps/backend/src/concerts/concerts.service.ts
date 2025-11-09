@@ -53,19 +53,27 @@ export class ConcertsService {
 
   // Get one concert by ID with seat calculations
   async findOne(id: number) {
-    const concert = await this.concertRepo.findOne({
-      where: { id },
-      relations: ['reservations'],
+    const concert = await this.concertRepo.findOne({ where: { id } });
+    if (!concert) throw new Error('Concert not found');
+
+    const reservations = await this.reservationRepo.find({
+      where: { concert: { id } },
     });
 
-    if (!concert) throw new NotFoundException('Concert not found');
+    const reservedSeats = reservations.filter(
+      (r) => r.status === 'reserve',
+    ).length;
+    const cancelledSeats = reservations.filter(
+      (r) => r.status === 'cancel',
+    ).length;
 
-    const stats = await this.calculateSeatStats(id);
+    const availableSeats = concert.total_seats - reservedSeats + cancelledSeats;
 
     return {
       ...concert,
-      total_seats: concert.total_seats,
-      ...stats,
+      reserved_seats: reservedSeats,
+      cancelled_seats: cancelledSeats,
+      available_seats: availableSeats,
     };
   }
 

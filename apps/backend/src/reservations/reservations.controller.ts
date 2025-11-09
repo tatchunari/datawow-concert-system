@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import { ReserveSeatDto } from './dto/reserve-seat.dto';
 import { CancelSeatDto } from './dto/cancel-seat.dto';
@@ -18,5 +18,10 @@ export class ReservationsController {
       body.user_id,
       body.concert_id,
     );
+  }
+  // 🧾 Get all reservations for a specific user
+  @Get('user/:user_id')
+  getUserReservations(@Param('user_id') user_id: string) {
+    return this.reservationsService.getUserReservations(Number(user_id));
   }
 }
