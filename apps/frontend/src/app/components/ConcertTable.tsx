@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 export interface ConcertTableRow {
   dateTime: string;
   username: string;
@@ -9,13 +13,26 @@ interface ConcertTableProps {
   data: ConcertTableRow[];
   isLoading?: boolean;
   emptyMessage?: string;
+  rowsPerPage?: number; // optional, default 5
 }
 
 export default function ConcertTable({
   data,
   isLoading = false,
   emptyMessage = "No records found",
+  rowsPerPage = 5,
 }: ConcertTableProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(data.length / rowsPerPage);
+
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const paginatedData = data.slice(startIndex, startIndex + rowsPerPage);
+
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > totalPages) return;
+    setCurrentPage(page);
+  };
+
   if (isLoading) {
     return (
       <div className="w-full max-w-full p-4 flex justify-center items-center">
@@ -36,7 +53,7 @@ export default function ConcertTable({
 
   return (
     <div className="w-full max-w-full p-4">
-      {/* Desktop Table View */}
+      {/* Desktop Table */}
       <div className="hidden md:block overflow-x-auto border border-gray-400 rounded-lg">
         <table className="w-full bg-white">
           <thead>
@@ -56,11 +73,13 @@ export default function ConcertTable({
             </tr>
           </thead>
           <tbody>
-            {data.map((row, index) => (
+            {paginatedData.map((row, index) => (
               <tr
                 key={index}
                 className={`${
-                  index !== data.length - 1 ? "border-b border-gray-400" : ""
+                  index !== paginatedData.length - 1
+                    ? "border-b border-gray-400"
+                    : ""
                 } hover:bg-gray-50 transition-colors`}
               >
                 <td className="px-6 py-4 text-sm text-gray-900 border-r border-gray-400">
@@ -83,7 +102,7 @@ export default function ConcertTable({
 
       {/* Mobile Card View */}
       <div className="md:hidden space-y-4">
-        {data.map((row, index) => (
+        {paginatedData.map((row, index) => (
           <div
             key={index}
             className="bg-white border border-gray-400 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
@@ -126,6 +145,41 @@ export default function ConcertTable({
           </div>
         ))}
       </div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center space-x-2 mt-4">
+          <button
+            className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              className={`px-3 py-1 rounded ${
+                currentPage === i + 1
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 hover:bg-gray-300"
+              }`}
+              onClick={() => handlePageChange(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          <button
+            className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 }
