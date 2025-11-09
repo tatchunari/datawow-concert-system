@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Reservation } from 'src/entities/reservation';
-import { History } from 'src/entities/history.entity';
-import { User } from 'src/entities/user.entity';
-import { Concert } from 'src/entities/concert.entity';
+import { Reservation } from '../entities/reservation';
+import { History } from '../entities/history.entity';
+import { User } from '../entities/user.entity';
+import { Concert } from '../entities/concert.entity';
 @Injectable()
 export class ReservationsService {
   constructor(
