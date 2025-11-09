@@ -1,4 +1,4 @@
-interface ConcertTableRow {
+export interface ConcertTableRow {
   dateTime: string;
   username: string;
   concertName: string;

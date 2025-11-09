@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+// import { useState } from "react";
 import { api } from "@/lib/axios";
 import ConcertCard from "@/app/components/ConcertCard";
 // import DeleteModal from "@/app/components/DeleteModal";
@@ -33,10 +33,10 @@ export default function UserDashboardPage() {
   const userId = userIdParam ? Number(userIdParam) : 1; // default to 1
 
   const queryClient = useQueryClient();
-  const [showModal, setShowModal] = useState(false);
-  const [selectedConcertId, setSelectedConcertId] = useState<number | null>(
-    null
-  );
+  // const [showModal, setShowModal] = useState(false);
+  // const [selectedConcertId, setSelectedConcertId] = useState<number | null>(
+  //   null
+  // );
 
   // Fetch concerts
   const { data: concerts = [], isLoading: concertsLoading } = useQuery<

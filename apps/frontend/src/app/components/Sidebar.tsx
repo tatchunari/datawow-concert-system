@@ -1,17 +1,21 @@
 "use client";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Detect current mode based on URL path
   const mode = pathname.startsWith("/dashboard/admin") ? "admin" : "user";
 
+  // Get user_id from query (or default to 1)
+  const userId = searchParams.get("user_id") || "1";
   // Admin-only links
   const adminLinks = [
     { name: "Home", href: "/dashboard/admin" },
@@ -19,11 +23,18 @@ export default function Sidebar() {
   ];
 
   // User-only links
-  const userLinks = [{ name: "History", href: "/dashboard/user/history" }];
+  const userLinks = [
+    { name: "Home", href: "/dashboard/user" },
+    { name: "History", href: `/dashboard/user/history?user_id=${userId}` },
+  ];
 
   // Switch between admin and user dashboard
   const handleSwitch = () => {
-    router.push(mode === "admin" ? "/dashboard/user" : "/dashboard/admin");
+    router.push(
+      mode === "admin"
+        ? `/dashboard/user?user_id=${userId}`
+        : "/dashboard/admin"
+    );
     setIsMobileMenuOpen(false);
   };
 
