@@ -24,11 +24,11 @@ export default function Sidebar() {
 
   // User-only links
   const userLinks = [
-    { name: "Home", href: "/dashboard/user", icon: "History" },
+    { name: "Home", href: "/dashboard/user", icon: "Home" },
     {
       name: "History",
       href: `/dashboard/user/history?user_id=${userId}`,
-      icon: "Inbox",
+      icon: "History",
     },
   ];
 
@@ -83,7 +83,7 @@ export default function Sidebar() {
       >
         <div>
           {/* Header title */}
-          <h1 className="text-lg font-semibold mb-6">
+          <h1 className="text-lg font-semibold mb-6 mt-10">
             {mode === "admin" ? "Admin" : "User"}
           </h1>
 
