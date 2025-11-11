@@ -234,6 +234,7 @@ The **username** of the currently simulated user is displayed at the top of the 
 - The **"History" tab** in the Admin Sidebar acts as a global **Activity Log**, showing **all user actions** (reserve, cancel, etc.).
 - Added a **"Home" tab** in the User Dashboard for easier navigation.
 - Added **username display** in the User Sidebar to clearly indicate which simulated user is active.
+- The reserve button is disabled when concert is fully booked.
 
 ---
 
