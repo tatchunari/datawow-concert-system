@@ -33,12 +33,7 @@ export default function UserDashboardPage() {
   const userId = userIdParam ? Number(userIdParam) : 1; // default to 1
 
   const queryClient = useQueryClient();
-  // const [showModal, setShowModal] = useState(false);
-  // const [selectedConcertId, setSelectedConcertId] = useState<number | null>(
-  //   null
-  // );
 
-  // Fetch concerts
   const { data: concerts = [], isLoading: concertsLoading } = useQuery<
     Concert[]
   >({
@@ -95,15 +90,29 @@ export default function UserDashboardPage() {
           (r) => r.concert.id === concert.id && r.status === "active"
         );
 
+        const isSoldOut = concert.available_seats === 0;
+
         return (
           <ConcertCard
             key={concert.id}
             title={concert.name}
             description={concert.description}
             totalSeats={concert.total_seats}
-            buttonLabel={hasReserved ? "Cancel" : "Reserve"}
-            buttonColor={hasReserved ? "bg-card-red" : "bg-[#1692EC]"}
-            onButtonClick={() => handleReserveCancel(concert.id, hasReserved)}
+            buttonLabel={
+              isSoldOut ? "Sold Out" : hasReserved ? "Cancel" : "Reserve"
+            }
+            buttonColor={
+              isSoldOut
+                ? "bg-gray-400 cursor-not-allowed"
+                : hasReserved
+                ? "bg-card-red"
+                : "bg-[#1692EC]"
+            }
+            onButtonClick={
+              isSoldOut
+                ? undefined // prevent clicking
+                : () => handleReserveCancel(concert.id, hasReserved)
+            }
           />
         );
       })}
